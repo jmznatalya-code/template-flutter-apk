@@ -25,6 +25,7 @@ jobs:
         with:
           flutter-version: '3.19.0'
           channel: 'stable'
+          cache: true
 
       - name: Disable Flutter analytics
         run: flutter config --no-analytics --no-cli-animations
