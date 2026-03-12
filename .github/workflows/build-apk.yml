@@ -4,9 +4,16 @@ on:
     branches: [main]
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  FLUTTER_TELEMETRY_OPTOUT: 1
+  DART_CLI_ANALYTICS: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .
+
     steps:
       - uses: actions/checkout@v4
 
@@ -21,6 +28,12 @@ jobs:
         with:
           flutter-version: '3.19.0'
           channel: 'stable'
+
+      - name: Disable Flutter analytics
+        run: flutter config --no-analytics --no-cli-animations
+
+      - name: Verify Flutter project
+        run: flutter doctor -v
 
       - name: Install dependencies
         run: flutter pub get
